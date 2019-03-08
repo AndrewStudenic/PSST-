@@ -1,0 +1,6 @@
+framework module Pods_PSST_Tests {
+  umbrella header "Pods-PSST!Tests-umbrella.h"
+
+  export *
+  module * { export * }
+}
