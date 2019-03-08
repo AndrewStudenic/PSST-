@@ -100,15 +100,20 @@
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="82.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Some Words" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="v1W-up-fMH">
-                                                    <rect key="frame" x="15" y="11" width="345" height="61"/>
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Some Words" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="v1W-up-fMH">
+                                                    <rect key="frame" x="20" y="16" width="345" height="61"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                             </subviews>
                                             <color key="backgroundColor" red="1" green="0.85343932739999995" blue="0.70425900399999997" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                            <constraints>
+                                                <constraint firstItem="v1W-up-fMH" firstAttribute="trailing" secondItem="avV-8x-t03" secondAttribute="trailingMargin" constant="5" id="9cB-wk-8xo"/>
+                                                <constraint firstItem="v1W-up-fMH" firstAttribute="leading" secondItem="avV-8x-t03" secondAttribute="leadingMargin" constant="5" id="XqI-6K-MQf"/>
+                                                <constraint firstItem="v1W-up-fMH" firstAttribute="bottom" secondItem="avV-8x-t03" secondAttribute="bottomMargin" constant="5" id="dVw-nw-6Yi"/>
+                                                <constraint firstItem="v1W-up-fMH" firstAttribute="top" secondItem="avV-8x-t03" secondAttribute="topMargin" constant="5" id="eYf-j6-wi0"/>
+                                            </constraints>
                                         </tableViewCellContentView>
                                         <connections>
                                             <outlet property="messageLabel" destination="v1W-up-fMH" id="Od2-He-EOM"/>

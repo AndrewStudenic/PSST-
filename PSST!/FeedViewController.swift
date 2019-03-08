@@ -31,42 +31,50 @@ class FeedViewController: UIViewController, UITableViewDelegate, UITableViewData
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
-        let query = PFQuery(className: "Posts")
-        //query.includeKey(post)
+        let query = PFQuery(className: "Message")
+        //query.includeKey("author")
+        query.order(byDescending: "createdAt")
         query.limit = 25
         
         query.findObjectsInBackground { (posts, error) in
             if posts != nil {
-                self.posts = posts
-                self.tableVire.reloadData()
+                self.posts = posts!
+                self.tableView.reloadData()
             }
         }
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
-        let cell = tableView.dequeueReusableCell(withIdentifier: "PostCell")
-            as! PostCell
         
-        let posts = post[indexPath.row]
-        
-        cell.
-        
+        return posts.count
         
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        return tableView
+        
+        let cell = tableView.dequeueReusableCell(withIdentifier: "PostCell")
+            as! PostCell
+        
+        let post = posts[indexPath.row]
+        
+        cell.messageLabel.text = post["Message"] as? String
+        
+        return cell
+        
     }
     
     @IBAction func sendMessage(_ sender: Any) {
         
         let chatMessage = PFObject(className: "Message")
         
+        
         chatMessage["text"] = messageField.text ?? ""
+        //chatMessage["author"] = PFUser.current()!
         
         chatMessage.saveInBackground { (success, error) in
             if success {
+                self.dismiss(animated: true, completion: nil)
                 print("the message was saved!")
             } else if let error = error {
                 print("Problem saving message: \(error.localizedDescription)")
@@ -74,6 +82,26 @@ class FeedViewController: UIViewController, UITableViewDelegate, UITableViewData
         }
     }
     
+    
+    /*
+     
+     Experiment....
+     
+     
+    func getMessages() {
+        let query = PFQuery(className: "Message")
+        query.addDescendingOrder("createdAt")
+        query.findObjectsInBackground { (posts: [PFObject]?, error: Error? ) in
+            if let posts = posts {
+                self.posts = posts
+                print("\(String(describing: self.posts.first!["text"]!))")
+                self.tableView.reloadData()
+            } else {
+                print("Error getting messages...")
+            }
+        
+    }
+    */
 
     /*
     // MARK: - Navigation
@@ -85,4 +113,5 @@ class FeedViewController: UIViewController, UITableViewDelegate, UITableViewData
     }
     */
 
+}
 }
