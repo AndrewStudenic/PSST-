@@ -11,12 +11,7 @@ import Parse
 
 class FeedViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
-    
     @IBOutlet weak var messageField: UITextField!
-    
-    
-    
-    
     
     @IBOutlet weak var tableView: UITableView!
     
@@ -27,6 +22,9 @@ class FeedViewController: UIViewController, UITableViewDelegate, UITableViewData
         
         tableView.delegate = self
         tableView.dataSource = self
+        
+        tableView.rowHeight = UITableView.automaticDimension
+        tableView.estimatedRowHeight = 50
 
         // Do any additional setup after loading the view.
     }
@@ -49,7 +47,6 @@ class FeedViewController: UIViewController, UITableViewDelegate, UITableViewData
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
-        
         return posts.count
         
     }
@@ -62,19 +59,22 @@ class FeedViewController: UIViewController, UITableViewDelegate, UITableViewData
         let post = posts[indexPath.row]
         
         cell.messageLabel.text = post["text"] as? String
-        cell.usernameLabel.text = post["user"] as? String
+        //cell.usernameLabel.text = post["user"] as? String
+        if let user = post["user"] as? PFUser {
+            cell.usernameLabel.text = user.username
+        } else {
+            cell.usernameLabel.text = "🤡"
+        }
         
         return cell
-        
     }
     
     @IBAction func sendMessage(_ sender: Any) {
         
         let chatMessage = PFObject(className: "Message")
         
-        
         chatMessage["text"] = messageField.text ?? ""
-        //chatMessage["author"] = PFUser.current()!
+        chatMessage["user"] = PFUser.current()!
         
         chatMessage.saveInBackground { (success, error) in
             if success {
