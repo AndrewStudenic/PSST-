@@ -15,6 +15,9 @@ class FeedViewController: UIViewController, UITableViewDelegate, UITableViewData
     @IBOutlet weak var messageField: UITextField!
     
     
+    
+    
+    
     @IBOutlet weak var tableView: UITableView!
     
     var posts = [PFObject]()
@@ -32,7 +35,7 @@ class FeedViewController: UIViewController, UITableViewDelegate, UITableViewData
         super.viewDidAppear(animated)
         
         let query = PFQuery(className: "Message")
-        //query.includeKey("author")
+        query.includeKey("user")
         query.order(byDescending: "createdAt")
         query.limit = 25
         
@@ -58,7 +61,8 @@ class FeedViewController: UIViewController, UITableViewDelegate, UITableViewData
         
         let post = posts[indexPath.row]
         
-        cell.messageLabel.text = post["Message"] as? String
+        cell.messageLabel.text = post["text"] as? String
+        cell.usernameLabel.text = post["user"] as? String
         
         return cell
         
